@@ -4,7 +4,7 @@ export function TaskBar() {
   const [toggleStartMenu, setToggleStartMenu] = useState(false);
 
   function toggleMenu() {
-    setToggleStartMenu(true);
+    setToggleStartMenu((prevState) => !prevState);
   }
   var today = new Date();
   var time =
