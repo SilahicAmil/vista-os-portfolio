@@ -1,14 +1,22 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
 export function TaskBar() {
   const [toggleStartMenu, setToggleStartMenu] = useState(false);
+  const [dateTime, setDateTime] = useState(false);
 
   function toggleMenu() {
     setToggleStartMenu((prevState) => !prevState);
   }
-  var today = new Date();
-  var time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+  useEffect(() => {
+    const dateTimeInterval = setInterval(function () {
+      const hms = new Date().toLocaleTimeString("en-US");
+      setDateTime(hms);
+    }, 1000);
+
+    return () => clearInterval(dateTimeInterval);
+  }, [dateTime]);
 
   return (
     <div className="fixed bottom-0 left-0 w-screen">
@@ -40,7 +48,7 @@ export function TaskBar() {
         <div className="flex ml-auto mr-12 justify-center items-center">
           {/* TODO figure out how to get this to be realistic and update 
                 I Guess just a useEffect the runs every second?*/}
-          <p>{time}</p>
+          <p>{dateTime}</p>
         </div>
       </div>
     </div>
